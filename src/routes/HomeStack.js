@@ -11,6 +11,7 @@ const HomeStack = () => (
     screenOptions={{
       headerShown: false,
       headerTransparent: true,
+      cardStyle: { backgroundColor: '#ffffff' }
     }}
   >
     <Stack.Screen name="Home" component={Home} />
