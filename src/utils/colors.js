@@ -59,7 +59,7 @@ export const pokemonTypeColors = {
     medium: '#99d7d8',
     light: '#dff2f2',
   },
-  medium: {
+  normal: {
     original: '#a8a877',
     medium: '#b8b891',
     light: '#ebebdd',
