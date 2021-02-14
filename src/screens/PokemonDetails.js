@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
@@ -13,6 +13,11 @@ export default function PokemonDetails({ route, navigation }) {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonId, setPokemonId] = useState(null);
   const [themeColor, setThemeColor] = useState('');
+  const [activeTab, setActiveTab] = useState('basestats');
+
+  const isActiveTab = tabName => {
+    return activeTab === tabName;
+  }
 
   const getPokemon = async () => {
     const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
@@ -58,6 +63,25 @@ export default function PokemonDetails({ route, navigation }) {
         </View>
 
         {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor} /> : null}
+
+        <View style={styles.tabs}>
+          <TouchableOpacity onPress={() => setActiveTab('basestats')}>
+            <Text style={isActiveTab('basestats') ? styles.activeTab : styles.inactiveTab}>Base Stats</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setActiveTab('evolution')}>
+            <Text style={isActiveTab('evolution') ? styles.activeTab : styles.inactiveTab}>Evolution</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setActiveTab('moves')}>
+            <Text style={isActiveTab('moves') ? styles.activeTab : styles.inactiveTab}>Moves</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.tabContent}>
+          {isActiveTab('basestats') ? <Text>base stats content</Text> : null}
+          {isActiveTab('evolution') ? <Text>evolution content</Text> : null}
+          {isActiveTab('moves') ? <Text>moves content</Text> : null}
+        </View>
+
       </SafeAreaView>
     )
   }
@@ -92,4 +116,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 16,
   },
+  tabs: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  activeTab: {
+    fontWeight: '500'
+  },
+  inactiveTab: {
+    color: '#666'
+  },
+  tabContent: {
+    padding: 16
+  }
 })
