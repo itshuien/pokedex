@@ -30,7 +30,7 @@ export default function PokemonDetails({ route, navigation }) {
 
   useEffect(() => {
     const pokemonTypeColor = pokemon ? pokemonTypeColors[pokemon.types[0].type.name] : pokemonTypeColors.unknown;
-    setThemeColor(pokemonTypeColor.normal);
+    setThemeColor(pokemonTypeColor);
 
     if (pokemon) {
       const fullId = pokemon.id.toString().padStart(3, '0');
@@ -57,12 +57,12 @@ export default function PokemonDetails({ route, navigation }) {
             <PokemonTypeLabel
               key={item.slot}
               typeName={item.type.name}
-              color={pokemonTypeColors[item.type.name].normal}
+              color={pokemonTypeColors[item.type.name].medium}
             />
           ))}
         </View>
 
-        {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor} /> : null}
+        {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor.light} /> : null}
 
         <View style={styles.tabs}>
           <TouchableOpacity onPress={() => setActiveTab('basestats')}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   tabs: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
     justifyContent: 'space-between',
     marginTop: 40,
     marginBottom: 16,
@@ -130,6 +130,6 @@ const styles = StyleSheet.create({
     color: '#666'
   },
   tabContent: {
-    padding: 16
+    padding: 8
   }
 })

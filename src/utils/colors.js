@@ -1,62 +1,102 @@
 export const pokemonTypeColors = {
   bug: {
-    normal: '#ef8130',
+    original: '#ef8130',
+    medium: '#db9969',
+    light: '#faf0e8',
   },
   dark: {
-    normal: '#705848',
+    original: '#705848',
+    medium: '#8a7567',
+    light: '#dbd5d0',
   },
   dragon: {
-    normal: '#6f39f8',
+    original: '#6f39f8',
+    medium: '#6f39f8',
+    light: '#ebebff',
   },
   electric: {
-    normal: '#f9d130',
+    original: '#f9d130',
+    medium: '#f5ca20',
+    light: '#faf3d7',
   },
   fairy: {
-    normal: '#f0b5bc',
+    original: '#f0b5bc',
+    medium: '#f0b5bc',
+    light: '#fcebec',
   },
   fighting: {
-    normal: '#c03129',
+    original: '#c03129',
+    medium: '#bf4d47',
+    light: '#fae7e6',
   },
   fire: {
-    normal: '#ef8030',
+    original: '#ef8030',
+    medium: '#fa9d5a',
+    light: '#f7eddf',
   },
   flying: {
-    normal: '#a990f0',
+    original: '#a990f0',
+    medium: '#a990f0',
+    light: '#ede9f7',
   },
   ghost: {
-    normal: '#705898',
+    original: '#705898',
+    medium: '#927bb8',
+    light: '#ece6f5',
   },
   grass: {
-    normal: '#79c84f',
+    original: '#79c84f',
+    medium: '#8ab872',
+    light: '#eaf5e4',
   },
   ground: {
-    normal: '#e0c068',
+    original: '#e0c068',
+    medium: '#e0c068',
+    light: '#faf1d7',
   },
   ice: {
-    normal: '#99d7d8',
+    original: '#99d7d8',
+    medium: '#99d7d8',
+    light: '#dff2f2',
   },
-  normal: {
-    normal: '#a8a877',
+  medium: {
+    original: '#a8a877',
+    medium: '#b8b891',
+    light: '#ebebdd',
   },
   poison: {
-    normal: '#a0419e',
+    original: '#a0419e',
+    medium: '#ab60aa',
+    light: '#f5e4f5',
   },
   psychic: {
-    normal: '#f85888',
+    original: '#f85888',
+    medium: '#e099ae',
+    light: '#fae6ec',
   },
   rock: {
-    normal: '#b8a138',
+    original: '#b8a138',
+    medium: '#bfad58',
+    light: '#ede9d5',
   },
   shadow: {
-    normal: '#725b95',
+    original: '#725b95',
+    medium: '#725b95',
+    light: '#e8e1f2',
   },
   steel: {
-    normal: '#b8b8d0',
+    original: '#b8b8d0',
+    medium: '#b8b8d0',
+    light: '#ebebf5',
   },
   unknown: {
-    normal: '#888888',
+    original: '#aaaaaa',
+    medium: '#aaaaaa',
+    light: '#efefef',
   },
   water: {
-    normal: '#6790f0',
+    original: '#6790f0',
+    medium: '#6a99de',
+    light: '#e3ecfa',
   },
 }

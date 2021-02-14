@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 16,
     borderRadius: 16,
-    opacity: 0.7,
+    opacity: 0.9,
   },
   text: {
     fontSize: 11,
