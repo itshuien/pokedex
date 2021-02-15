@@ -7,6 +7,7 @@ import { pokemonTypeColors } from '../utils/colors';
 
 import PokemonProfileImage from '../components/PokemonProfileImage';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
+import PokemonBaseStats from '../components/PokemonBaseStats';
 
 export default function PokemonDetails({ route, navigation }) {
   const { name } = route.params;
@@ -77,7 +78,7 @@ export default function PokemonDetails({ route, navigation }) {
         </View>
 
         <View style={styles.tabContent}>
-          {isActiveTab('basestats') ? <Text>base stats content</Text> : null}
+          {isActiveTab('basestats') ? <PokemonBaseStats rawBaseStats={pokemon.stats} themeColor={themeColor} /> : null}
           {isActiveTab('evolution') ? <Text>evolution content</Text> : null}
           {isActiveTab('moves') ? <Text>moves content</Text> : null}
         </View>
