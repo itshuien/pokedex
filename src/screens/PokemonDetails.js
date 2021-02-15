@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
@@ -7,19 +7,13 @@ import { pokemonTypeColors } from '../utils/colors';
 
 import PokemonProfileImage from '../components/PokemonProfileImage';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
-import PokemonBaseStats from '../components/PokemonBaseStats';
-import PokemonEvolutions from '../components/PokemonEvolutions';
+import PokemonProfileTabs from '../components/PokemonProfileTabs';
 
 export default function PokemonDetails({ route, navigation }) {
   const { name } = route.params;
   const [pokemon, setPokemon] = useState(null);
   const [pokemonId, setPokemonId] = useState(null);
   const [themeColor, setThemeColor] = useState('');
-  const [activeTab, setActiveTab] = useState('basestats');
-
-  const isActiveTab = tabName => {
-    return activeTab === tabName;
-  }
 
   const getPokemon = async () => {
     const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
@@ -66,23 +60,7 @@ export default function PokemonDetails({ route, navigation }) {
 
         {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor.light} /> : null}
 
-        <View style={styles.tabs}>
-          <TouchableOpacity onPress={() => setActiveTab('basestats')}>
-            <Text style={isActiveTab('basestats') ? styles.activeTab : styles.inactiveTab}>Base Stats</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActiveTab('evolutions')}>
-            <Text style={isActiveTab('evolutions') ? styles.activeTab : styles.inactiveTab}>Evolutions</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActiveTab('moves')}>
-            <Text style={isActiveTab('moves') ? styles.activeTab : styles.inactiveTab}>Moves</Text>
-          </TouchableOpacity>
-        </View>
-
-        <ScrollView style={styles.tabContent}>
-          {isActiveTab('basestats') ? <PokemonBaseStats rawBaseStats={pokemon.stats} themeColor={themeColor} /> : null}
-          {isActiveTab('evolutions') ? <PokemonEvolutions pokemonName={pokemon.name} pokemonFullId={pokemonId} /> : null}
-          {isActiveTab('moves') ? <Text>moves content</Text> : null}
-        </ScrollView>
+        <PokemonProfileTabs pokemon={pokemon} themeColor={themeColor} />
       </SafeAreaView>
     )
   }
@@ -117,21 +95,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 16,
   },
-  tabs: {
-    flexDirection: 'row',
-    paddingHorizontal: 8,
-    justifyContent: 'space-between',
-    marginTop: 40,
-    marginBottom: 16,
-  },
-  activeTab: {
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  inactiveTab: {
-    color: '#666'
-  },
-  tabContent: {
-    padding: 8
-  }
 })
