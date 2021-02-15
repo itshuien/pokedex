@@ -9,7 +9,7 @@ import PokemonProfileImage from '../components/PokemonProfileImage';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
 import PokemonProfileTabs from '../components/PokemonProfileTabs';
 
-export default function PokemonDetails({ route, navigation }) {
+export default function PokemonProfile({ route, navigation }) {
   const { name } = route.params;
   const [pokemon, setPokemon] = useState(null);
   const [pokemonId, setPokemonId] = useState(null);

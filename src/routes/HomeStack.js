@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screens/Home';
-import PokemonDetails from '../screens/PokemonDetails';
+import PokemonProfile from '../screens/PokemonProfile';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,7 @@ const HomeStack = () => (
     }}
   >
     <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="PokemonDetails" component={PokemonDetails} />
+    <Stack.Screen name="PokemonProfile" component={PokemonProfile} />
   </Stack.Navigator>
 )
 
