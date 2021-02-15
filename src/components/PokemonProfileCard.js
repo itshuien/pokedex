@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   content: {
+    paddingVertical: 16,
     paddingLeft: 16,
     paddingRight: 24,
   },
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     height: '100%',
     overflow: 'hidden',
     zIndex: -1,
+    borderRadius: 8,
   },
   image: {
     flex: 1,
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
-    opacity: 0.7,
+    opacity: 0.5,
     bottom: '-20%',
     right: '-30%',
   }
