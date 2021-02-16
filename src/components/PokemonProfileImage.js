@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image, View, Animated } from 'react-native'
 
-export default function PokemonProfileImage({ pokemonId, themeColor }) {
+export default function PokemonProfileImage({ pokemonId, themeColor, scrollY }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
     setImageUrl(`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemonId}.png`);
   }, []);
 
+  const opacityY = scrollY.interpolate({
+    inputRange: [0, 200],
+    outputRange: [1, 0.1],
+    extrapolateRight: 'clamp',
+  })
+
   return (
-    <View style={{ ...styles.imageWrapper }}>
+    <Animated.View
+      style={{
+        ...styles.imageWrapper,
+        opacity: opacityY
+      }}
+    >
       <View style={{ ...styles.imageBackground, backgroundColor: themeColor }} />
       <Image
         source={{ uri: imageUrl }}
         style={{ ...styles.image }}
         resizeMethod="scale"
       />
-    </View>
+    </Animated.View>
   )
 }
 

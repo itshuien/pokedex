@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { StyleSheet, Text, View, Dimensions, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
@@ -14,6 +14,8 @@ export default function PokemonProfile({ route, navigation }) {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonId, setPokemonId] = useState(null);
   const [themeColor, setThemeColor] = useState('');
+
+  const scrollY = useRef(new Animated.Value(0)).current;;
 
   const getPokemon = async () => {
     const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
@@ -58,9 +60,16 @@ export default function PokemonProfile({ route, navigation }) {
           ))}
         </View>
 
-        {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor.light} /> : null}
+        <Animated.ScrollView
+          onScroll={Animated.event(          
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],  
+            { useNativeDriver: true },
+          )}
+        >
+          {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor.light} scrollY={scrollY} /> : null}
 
-        <PokemonProfileTabs pokemon={pokemon} themeColor={themeColor} />
+          <PokemonProfileTabs pokemon={pokemon} themeColor={themeColor} scrollY={scrollY} />
+        </Animated.ScrollView>
       </SafeAreaView>
     )
   }
