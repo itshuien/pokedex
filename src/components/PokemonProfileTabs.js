@@ -17,16 +17,19 @@ export default function PokemonProfileTabs({ pokemon, themeColor }) {
       <View style={styles.tabs}>
         <PokemonProfileTabItem
           tabName="Base Stats"
+          iconName="chart-bar"
           setActiveTab={() => setActiveTab('basestats')}
           isActiveTab={isActiveTab('basestats')}
         />
         <PokemonProfileTabItem
           tabName="Moves"
+          iconName="sword-cross"
           setActiveTab={() => setActiveTab('moves')}
           isActiveTab={isActiveTab('moves')}
         />
         <PokemonProfileTabItem
           tabName="Evolutions"
+          iconName="dna"
           setActiveTab={() => setActiveTab('evolutions')}
           isActiveTab={isActiveTab('evolutions')}
         />

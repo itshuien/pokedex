@@ -2,14 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function PokemonProfileTabItem({ tabName, setActiveTab, isActiveTab }) {
+export default function PokemonProfileTabItem({ tabName, iconName, setActiveTab, isActiveTab }) {
   const getTabColor = () => {
     return { color: isActiveTab ? '#333' : '#aaa' };
   }
 
   return (
     <TouchableOpacity style={styles.tab} onPress={setActiveTab}>
-      <MaterialCommunityIcons name="chart-bar" size={24} style={[styles.tabIcon, getTabColor()]} />
+      <MaterialCommunityIcons name={iconName} size={24} style={[styles.tabIcon, getTabColor()]} />
       <Text style={[styles.tabTitle, getTabColor()]}>{tabName}</Text>
     </TouchableOpacity>
   )
