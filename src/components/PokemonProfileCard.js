@@ -1,34 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { pokemonTypeColors } from '../utils/colors';
-import axios from 'axios';
+import usePokemon from '../hooks/usePokemon';
 
 export default function PokemonProfileCard({ pokemonName, navigation }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [pokemon, setPokemon] = useState(null);
+  const { pokemon } = usePokemon(pokemonName);
+
   const [themeColor, setThemeColor] = useState('');
-
-  const getPokemon = async (source) => {
-    try {
-      const { data: { id, name, types } } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`, { cancelToken: source.token });
-      const fullId = id.toString().padStart(3, '0');
-      setPokemon({ id, name, types, fullId });
-    } catch(e) {
-      if (!isLoading) return;
-      console.error(e);
-    }
-  }
-  
-  useEffect(() => {
-    setIsLoading(true);
-    const source = axios.CancelToken.source();
-    getPokemon(source);
-
-    return () => {
-      setIsLoading(false);
-      source.cancel('Cancel axios request');
-    }
-  }, []);
 
   useEffect(() => {
     const pokemonTypeColor = pokemon ? pokemonTypeColors[pokemon.types[0].type.name] : pokemonTypeColors.unknown;

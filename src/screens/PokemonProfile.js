@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Dimensions, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
-import axios from 'axios';
 import { pokemonTypeColors } from '../utils/colors';
+import usePokemon from '../hooks/usePokemon';
 
 import PokemonProfileImage from '../components/PokemonProfileImage';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
@@ -11,29 +11,15 @@ import PokemonProfileTabs from '../components/PokemonProfileTabs';
 
 export default function PokemonProfile({ route, navigation }) {
   const { name } = route.params;
-  const [pokemon, setPokemon] = useState(null);
-  const [pokemonId, setPokemonId] = useState(null);
+  const { pokemon } = usePokemon(name);
+
   const [themeColor, setThemeColor] = useState('');
 
   const scrollY = useRef(new Animated.Value(0)).current;;
 
-  const getPokemon = async () => {
-    const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
-    setPokemon(data);
-  }
-  
-  useEffect(() => {
-    getPokemon();
-  }, []);
-
   useEffect(() => {
     const pokemonTypeColor = pokemon ? pokemonTypeColors[pokemon.types[0].type.name] : pokemonTypeColors.unknown;
     setThemeColor(pokemonTypeColor);
-
-    if (pokemon) {
-      const fullId = pokemon.id.toString().padStart(3, '0');
-      setPokemonId(fullId);
-    }
   }, [pokemon]);
 
   if (pokemon) {
@@ -47,7 +33,7 @@ export default function PokemonProfile({ route, navigation }) {
           style={{ marginBottom: 16 }}
         />
 
-        <Text style={styles.pokemonId}>#{pokemonId}</Text>
+        <Text style={styles.pokemonId}>#{pokemon.fullId}</Text>
         <Text style={styles.pokemonName}>{pokemon.name}</Text>
 
         <View style={styles.types}>
@@ -66,7 +52,7 @@ export default function PokemonProfile({ route, navigation }) {
             { useNativeDriver: true },
           )}
         >
-          {pokemonId ? <PokemonProfileImage pokemonId={pokemonId} themeColor={themeColor.light} scrollY={scrollY} /> : null}
+          <PokemonProfileImage pokemonId={pokemon.fullId} themeColor={themeColor.light} scrollY={scrollY} />
 
           <PokemonProfileTabs pokemon={pokemon} themeColor={themeColor} scrollY={scrollY} />
         </Animated.ScrollView>
