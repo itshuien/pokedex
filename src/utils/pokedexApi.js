@@ -1,22 +1,17 @@
 import axios from 'axios';
 
 export async function getEvolutionChain(source, pokemonName) {
-  try {
-    const { data: pokemonSpecies } = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}/`, { cancelToken: source.token });
-    const { data: { chain } } = await axios.get(pokemonSpecies.evolution_chain.url);
+  const { data: pokemonSpecies } = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}/`, { cancelToken: source.token });
+  const { data: { chain } } = await axios.get(pokemonSpecies.evolution_chain.url, { cancelToken: source.token });
 
-    const evolutionChain = flattenEvolutionChain(chain);
+  const evolutionChain = flattenEvolutionChain(chain);
 
-    const newEvolutionChain = await Promise.all(evolutionChain.map(async evolution => {
-      const details = await getEvolutionDetails(evolution.name);
+  const newEvolutionChain = await Promise.all(evolutionChain.map(async evolution => {
+    const details = await getEvolutionDetails(evolution.name);
+    return { ...evolution, ...details }
+  }))
 
-      return { ...evolution, ...details }
-    }))
-
-    return newEvolutionChain;
-  } catch(e) {
-    console.error(e);
-  }
+  return newEvolutionChain;
 }
 
 function flattenEvolutionChain(chain) {

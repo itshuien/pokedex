@@ -5,18 +5,26 @@ import axios from 'axios';
 import { getEvolutionChain } from '../utils/pokedexApi';
 
 export default function PokemonEvolutions({ pokemonName }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [evolutions, setEvolutions] = useState([]);
 
   const fetchEvolutionChain = async (source) => {
-    const evolutionChain = await getEvolutionChain(source, pokemonName);
-    setEvolutions(evolutionChain);
+    try {
+      const evolutionChain = await getEvolutionChain(source, pokemonName);
+      setEvolutions(evolutionChain);
+    } catch(e) {
+      if (!isLoading) return;
+      console.error(e);
+    }
   }
 
   useEffect(() => {
+    setIsLoading(true);
     const source = axios.CancelToken.source();
     fetchEvolutionChain(source);
 
     return () => {
+      setIsLoading(false);
       source.cancel('Cancel axios request');
     }
   }, []);

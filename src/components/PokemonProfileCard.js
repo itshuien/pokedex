@@ -14,7 +14,8 @@ export default function PokemonProfileCard({ pokemonName, navigation }) {
       const fullId = id.toString().padStart(3, '0');
       setPokemon({ id, name, types, fullId });
     } catch(e) {
-      if (isLoading) return;
+      if (!isLoading) return;
+      console.error(e);
     }
   }
   
