@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 import PokemonProfileTabItem from '../components/PokemonProfileTabItem';
 import PokemonBaseStats from '../components/PokemonBaseStats';
 import PokemonEvolutions from '../components/PokemonEvolutions';
+import PokemonMoves from '../components/PokemonMoves';
 
 export default function PokemonProfileTabs({ pokemon, themeColor }) {
   const [activeTab, setActiveTab] = useState('basestats');
@@ -38,7 +39,7 @@ export default function PokemonProfileTabs({ pokemon, themeColor }) {
       <ScrollView style={styles.tabContent}>
         {isActiveTab('basestats') ? <PokemonBaseStats rawBaseStats={pokemon.stats} themeColor={themeColor} /> : null}
         {isActiveTab('evolutions') ? <PokemonEvolutions pokemonName={pokemon.name} /> : null}
-        {isActiveTab('moves') ? <Text>moves content</Text> : null}
+        {isActiveTab('moves') ? <PokemonMoves moves={pokemon.moves} /> : null}
       </ScrollView>
     </>
   )
