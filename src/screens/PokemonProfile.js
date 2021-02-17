@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Dimensions, Animated } from 'react-native';
+import { StyleSheet, Text, View, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AntDesign } from '@expo/vector-icons';
 import { getPokemonTypeColor } from '../utils/colors';
 import usePokemon from '../hooks/usePokemon';
 
+import BackButton from '../components/BackButton';
 import PokemonProfileImage from '../components/PokemonProfileImage';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
 import PokemonProfileTabs from '../components/PokemonProfileTabs';
@@ -27,13 +27,7 @@ export default function PokemonProfile({ route, navigation }) {
   if (pokemon) {
     return (
       <SafeAreaView style={styles.container}>
-        <AntDesign
-          name="arrowleft"
-          size={24}
-          color="black"
-          onPress={() => navigation.navigate('Home')}
-          style={{ marginBottom: 16 }}
-        />
+        <BackButton onPress={() => navigation.navigate('Home')} />
 
         <Text style={styles.pokemonId}>#{pokemon.fullId}</Text>
         <Text style={styles.pokemonName}>{pokemon.name}</Text>
@@ -68,9 +62,6 @@ export default function PokemonProfile({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    width: Dimensions.get('screen').width
-  },
   container: {
     padding: 16,
     flex: 1,
