@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Dimensions, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
-import { pokemonTypeColors } from '../utils/colors';
+import { getPokemonTypeColor } from '../utils/colors';
 import usePokemon from '../hooks/usePokemon';
 
 import PokemonProfileImage from '../components/PokemonProfileImage';
@@ -18,7 +18,9 @@ export default function PokemonProfile({ route, navigation }) {
   const scrollY = useRef(new Animated.Value(0)).current;;
 
   useEffect(() => {
-    const pokemonTypeColor = pokemon ? pokemonTypeColors[pokemon.types[0].type.name] : pokemonTypeColors.unknown;
+    if (!pokemon) return;
+
+    const pokemonTypeColor = getPokemonTypeColor(pokemon.types[0].type.name);
     setThemeColor(pokemonTypeColor);
   }, [pokemon]);
 
@@ -41,7 +43,6 @@ export default function PokemonProfile({ route, navigation }) {
             <PokemonTypeLabel
               key={item.slot}
               typeName={item.type.name}
-              color={pokemonTypeColors[item.type.name].medium}
             />
           ))}
         </View>

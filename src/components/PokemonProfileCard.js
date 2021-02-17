@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { pokemonTypeColors } from '../utils/colors';
+import { getPokemonTypeColor } from '../utils/colors';
 import usePokemon from '../hooks/usePokemon';
 
 export default function PokemonProfileCard({ pokemonName, navigation }) {
@@ -9,8 +9,10 @@ export default function PokemonProfileCard({ pokemonName, navigation }) {
   const [themeColor, setThemeColor] = useState('');
 
   useEffect(() => {
-    const pokemonTypeColor = pokemon ? pokemonTypeColors[pokemon.types[0].type.name] : pokemonTypeColors.unknown;
-    setThemeColor(pokemonTypeColor);
+    if (!pokemon) return;
+
+    const color = getPokemonTypeColor(pokemon.types[0].type.name);
+    setThemeColor(color);
   }, [pokemon]);
 
   if (pokemon) {

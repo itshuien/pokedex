@@ -1,9 +1,10 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { getPokemonTypeColor } from '../utils/colors';
 
-export default function PokemonTypeLabel({ typeName, color }) {
+export default function PokemonTypeLabel({ typeName }) {
   return (
-    <View style={{ ...styles.container, backgroundColor: color }}>
+    <View style={{ ...styles.container, backgroundColor: getPokemonTypeColor(typeName).medium }}>
       <Text style={styles.text}>{typeName}</Text>
     </View>
   )
