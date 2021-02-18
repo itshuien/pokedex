@@ -19,7 +19,7 @@ export default function PokemonProfileCard({ pokemonName, navigation }) {
     return (
       <TouchableOpacity
         style={{ ...styles.container, backgroundColor: themeColor.light }}
-        onPress={() => navigation.navigate('PokemonProfile', pokemon)}
+        onPress={() => navigation.navigate('PokemonProfile', { name: pokemon.name })}
       >
         <View style={styles.content}>
           <Text style={styles.pokemonId}>#{pokemon.fullId}</Text>

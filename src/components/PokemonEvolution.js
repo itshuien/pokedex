@@ -1,26 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function PokemonEvolution({ evolution, evolvesFrom }) {
+  const navigation = useNavigation();
+
+  const goToPokemonProfile = name => {
+    navigation.push('PokemonProfile', { name })
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.pokemon}>
+      <TouchableOpacity style={styles.pokemon} onPress={() => goToPokemonProfile(evolvesFrom.name)}>
         <Image style={styles.image} resizeMethod="scale" source={{ uri: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${evolvesFrom.fullId}.png` }} />
         <Text style={styles.id}>#{evolvesFrom.fullId}</Text>
         <Text style={styles.name}>{evolvesFrom.name}</Text>
-      </View>
+      </TouchableOpacity>
+
       <View style={styles.trigger}>
         <AntDesign name="arrowright" size={16} style={{ marginBottom: 8, color: '#ccc' }} />
         {evolution.trigger === 'level-up' ? <Text>{evolution.minLevel ? `lv ${evolution.minLevel}` : 'level up'}</Text>: null}
         {evolution.trigger === 'use-item' ? <Text style={{ textAlign: 'center' }}>{evolution.item}</Text> : null}
         {!['level-up', 'use-item'].includes(evolution.trigger) ? <Text>{evolution.trigger}</Text> : null}
       </View>
-      <View style={styles.pokemon}>
+
+      <TouchableOpacity style={styles.pokemon} onPress={() => goToPokemonProfile(evolution.name)}>
         <Image style={styles.image} resizeMethod="scale" source={{ uri: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${evolution.fullId}.png` }} />
         <Text style={styles.id}>#{evolution.fullId}</Text>
         <Text style={styles.name}>{evolution.name}</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }

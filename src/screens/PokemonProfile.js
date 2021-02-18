@@ -27,7 +27,7 @@ export default function PokemonProfile({ route, navigation }) {
   if (pokemon) {
     return (
       <SafeAreaView style={styles.container}>
-        <BackButton onPress={() => navigation.navigate('Home')} />
+        <BackButton onPress={() => navigation.pop()} />
 
         <Text style={styles.pokemonId}>#{pokemon.fullId}</Text>
         <Text style={styles.pokemonName}>{pokemon.name}</Text>
