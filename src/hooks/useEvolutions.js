@@ -22,7 +22,6 @@ export default function useEvolutions(pokemonName) {
 
       setEvolutions(result);
     } catch(error) {
-      console.log(error)
       if (!isFetching) return;
       setError(error);
     }
@@ -38,7 +37,7 @@ export default function useEvolutions(pokemonName) {
     }
   }, [])
 
-  return { evolutions, error };
+  return { evolutions, isFetching, error };
 }
 
 function flattenEvolutionChain(chain) {
@@ -58,7 +57,7 @@ function flattenEvolutionChain(chain) {
         name: species.name,
         trigger: evolution_details.length ? evolution_details[0].trigger.name : null,
         minLevel: evolution_details.length ? evolution_details[0].min_level : null,
-        item: evolution_details.length ? evolution_details[0].item : null,
+        item: evolution_details.length ? evolution_details[0].item?.name : null,
       }
       traverseResult.push(data);
   
